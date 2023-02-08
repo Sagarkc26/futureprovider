@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futureprovider/main.dart';
-import 'package:futureprovider/user.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -11,7 +10,9 @@ class HomePage extends ConsumerWidget {
     return ref.watch(FetchUserProvider).when(
       data: (data) {
         return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title: Text(data.name),
+            ),
             body: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, index) => ListTile(

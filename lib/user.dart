@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:futureprovider/user.dart';
+import 'package:http/http.dart' as http;
+import 'package:riverpod/riverpod.dart';
 
 @immutable
 class User {
@@ -53,4 +56,13 @@ class User {
 
   @override
   int get hashCode => name.hashCode ^ email.hashCode;
+}
+
+final UserRepositoryProvider = Provider((ref) => UserRepository());
+
+class UserRepository {
+  Future<User> fetchUserDate() {
+    const url = 'https://jsonplaceholder.typicode.com/users/1';
+    return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+  }
 }

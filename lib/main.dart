@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:futureprovider/home.dart';
 import 'package:futureprovider/user.dart';
-import 'package:http/http.dart' as http;
 
 final FetchUserProvider = FutureProvider((ref) {
-  const url = 'https://jsonplaceholder.typicode.com/users/1';
-  return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+  final UserRepository = ref.watch(UserRepositoryProvider);
+  return UserRepository.fetchUserDate();
 });
 void main() => runApp(const ProviderScope(child: MyApp()));
 
